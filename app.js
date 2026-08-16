@@ -19,6 +19,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to the homepage my driller")
 });
 
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).render("errorPage", { error: "Something went wrong. Please try again." });
+});
+
 const PORT = 6969;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

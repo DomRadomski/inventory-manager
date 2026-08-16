@@ -1,22 +1,30 @@
 const { Router } = require("express");
+const { body } = require("express-validator");
 const catController = require("../controllers/categoryController");
+const asyncHandler = require("../utils/asyncHandler");
 const catRouter = Router();
 
-catRouter.get("/", catController.catListGet);
+catRouter.get("/", asyncHandler(catController.catListGet));
 
-catRouter.get("/:id", catController.catItemGet);
+catRouter.get("/:id", asyncHandler(catController.catItemGet));
 
-catRouter.get("/new", catController.catCreateGet);
-catRouter.get("/new", catController.catCreatePost);
+catRouter.get("/new", asyncHandler(catController.catCreateGet));
 
-catRouter.get("/update/:id", catController.catUpdateGet)
-catRouter.post("/update/:id", catController.catUpdatePost)
+catRouter.post("/new",
+    body("name").trim().notEmpty().withMessage("Category name is required"),
+    body("description").trim().optional({ values: "falsy" }),
+    asyncHandler(catController.catCreatePost)
+);
 
-catRouter.get("/delete/:id", catController.catDeleteGet)
-catRouter.post("/delete/:id", catController.catDeletePost)
+catRouter.get("/update/:id", asyncHandler(catController.catUpdateGet));
+
+catRouter.post("/update/:id",
+    body("name").trim().notEmpty().withMessage("Category name is required"),
+    body("description").trim().optional({ values: "falsy" }),
+    asyncHandler(catController.catUpdatePost)
+);
+
+catRouter.get("/delete/:id", asyncHandler(catController.catDeleteGet));
+catRouter.post("/delete/:id", asyncHandler(catController.catDeletePost));
 
 module.exports = catRouter;
-
-
-
-
