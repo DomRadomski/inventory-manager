@@ -8,8 +8,8 @@ async function getAllCats() {
 }
 
 async function getCatItem(id) {
-    const category = await pool.query("SELECT * FROM categories WHERE CatId = $1", [id]);
-    return category;
+    const result = await pool.query("SELECT * FROM categories WHERE CatId = $1", [id]);
+    return result.rows[0];
 }
 
 async function createCat(name, description) {
@@ -17,8 +17,8 @@ async function createCat(name, description) {
 }
 
 async function getLatestCat() {
-    const category = await pool.query("SELECT * FROM categories ORDER BY CatId DESC LIMIT 1");
-    return category;
+    const result = await pool.query("SELECT * FROM categories ORDER BY CatId DESC LIMIT 1");
+    return result.rows[0];
 }
 
 async function updateCat(id, name, description) {

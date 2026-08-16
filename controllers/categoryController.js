@@ -15,6 +15,7 @@ async function catItemGet(req, res) {
         return res.render("errorPage", { error: "Invalid category id" });
     }
     const category = await db.getCatItem(id);
+    console.log(category)
     if (!category) {
         return res.render("errorPage", { error: "Category not found" });
     }
@@ -22,6 +23,8 @@ async function catItemGet(req, res) {
 }
 
 async function catCreateGet(req, res) {
+    const category = await db.getLatestCat();
+    console.log(category)
     res.render("category/createCategory");
 }
 
@@ -34,7 +37,7 @@ async function catCreatePost(req, res) {
     const { name, description } = matchedData(req);
     await db.createCat(name, description || null);
     const category = await db.getLatestCat();
-    res.redirect(`/categories/${category.CatId}`);
+    res.redirect(`/categories/${category.catid}`);
 }
 
 async function catUpdateGet(req, res) {

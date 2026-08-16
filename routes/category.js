@@ -8,17 +8,17 @@ catRouter.get("/", asyncHandler(catController.catListGet));
 
 catRouter.get("/:id", asyncHandler(catController.catItemGet));
 
-catRouter.get("/new", asyncHandler(catController.catCreateGet));
+catRouter.get("/category/new", asyncHandler(catController.catCreateGet));
 
-catRouter.post("/new",
+catRouter.post("/category/new",
     body("name").trim().notEmpty().withMessage("Category name is required"),
     body("description").trim().optional({ values: "falsy" }),
     asyncHandler(catController.catCreatePost)
 );
 
-catRouter.get("/update/:id", asyncHandler(catController.catUpdateGet));
+catRouter.get("/category/update/:id", asyncHandler(catController.catUpdateGet));
 
-catRouter.post("/update/:id",
+catRouter.post("/category/update/:id",
     body("name").trim().notEmpty().withMessage("Category name is required"),
     body("description").trim().optional({ values: "falsy" }),
     asyncHandler(catController.catUpdatePost)

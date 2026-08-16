@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+
+<div class="create-category-page">
+    <h1 class="create-category-title">Create Category</h1>
+
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <div class="form-errors">
+            <ul class="form-errors-list">
+                <% errors.forEach(function(err) { %>
+                    <li class="form-errors-item"><%= err.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form class="create-category-form" action="/categories/category/new" method="POST">
+        <div class="form-field">
+            <label class="form-label" for="name">Category Name</label>
+            <input class="form-input" type="text" id="name" name="name" value="<%= typeof name !== 'undefined' ? name : '' %>">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-textarea" id="description" name="description"><%= typeof description !== 'undefined' ? description : '' %></textarea>
+        </div>
+
+        <button class="form-submit" type="submit">Create Category</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

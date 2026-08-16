@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+
+<div class="category-page">
+    <h1 class="category-title"><%= category.catname %></h1>
+
+    <div class="category-details">
+        <p class="category-description"><%= category.catdesc %></p>
+    </div>
+
+    <div class="category-actions">
+        <a class="category-action category-action-update" href="/categories/category/update/<%= category.catid %>">Update</a>
+        <a class="category-action category-action-delete" href="/">Delete</a>
+        <a class="category-action category-action-back" href="/categories">Back to categories</a>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

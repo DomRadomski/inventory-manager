@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+
+<div class="update-category-page">
+    <h1 class="update-category-title">Update Category</h1>
+
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <div class="form-errors">
+            <ul class="form-errors-list">
+                <% errors.forEach(function(err) { %>
+                    <li class="form-errors-item"><%= err.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form class="update-category-form" action="/categories/category/update/<%= category.catid %>" method="POST">
+        <div class="form-field">
+            <label class="form-label" for="name">Category Name</label>
+            <input class="form-input" type="text" id="name" name="name" value="<%= category.catname %>">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-textarea" id="description" name="description"><%= category.catdesc %></textarea>
+        </div>
+
+        <button class="form-submit" type="submit">Update Category</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>
