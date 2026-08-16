@@ -1,7 +1,6 @@
 const pool = require("../pool");
 
 const { body, validationResult, matchedData } = require("express-validator");
-const db = require("../db/queries/categoryQueries");
 
 async function getAllCats() {
     const { rows } = await pool.query("SELECT * FROM categories");
@@ -22,21 +21,24 @@ async function getLatestCat() {
     return category;
 }
 
-async function catUpdatePost(id, name, description) {
+async function updateCat(id, name, description) {
     await pool.query(
         "UPDATE categories SET CatName = $1, CatDesc = $2 WHERE CatId = $3",
         [name, description, id]
     );
 }
 
-async function catDeletePost(req, res) {
-    await db.deleteCatItem(req.params.id)
-    const categories = await db.getAllCats();
-    res.render("categories", {categories});
-}
-
 async function deleteCatItem(id) {
     await pool.query("DELETE FROM categories WHERE CatId = $1", [id])
+}
+
+module.exports = {
+    getAllCats,
+    getCatItem,
+    createCat,
+    getLatestCat,
+    updateCat
+    
 }
 
 

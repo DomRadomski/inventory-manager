@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+
+<div class="categories-page">
+    <h1 class="categories-title">Categories</h1>
+
+    <div class="categories-table">
+        <div class="categories-row categories-header">
+            <div class="categories-cell categories-cell-name">Category</div>
+            <div class="categories-cell categories-cell-desc">Description</div>
+        </div>
+
+        <% if (categories.length === 0) { %>
+            <div class="categories-row categories-empty">
+                <div class="categories-cell">No categories found.</div>
+            </div>
+        <% } else { %>
+            <% categories.forEach(function(category) { %>
+                <div class="categories-row">
+                    <div class="categories-cell categories-cell-name"><%= category.catname %></div>
+                    <div class="categories-cell categories-cell-desc"><%= category.catdesc %></div>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

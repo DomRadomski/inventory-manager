@@ -6,7 +6,7 @@ async function catListGet(req, res) {
     if (!categories) {
         return res.render("errorPage", { error: "Unable to load categories" });
     }
-    res.render("categories", {categories});
+    res.render("category/categories", { categories });
 }
 
 async function catItemGet(req, res) {
@@ -18,17 +18,17 @@ async function catItemGet(req, res) {
     if (!category) {
         return res.render("errorPage", { error: "Category not found" });
     }
-    res.render("category", { category });
+    res.render("category/category", { category });
 }
 
 async function catCreateGet(req, res) {
-    res.render("createCategory");
+    res.render("category/createCategory");
 }
 
 async function catCreatePost(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.render("createCategory", { errors: errors.array() });
+        return res.render("category/createCategory", { errors: errors.array() });
     }
 
     const { name, description } = matchedData(req);
@@ -47,8 +47,8 @@ async function catUpdateGet(req, res) {
     if (!category) {
         return res.render("errorPage", { error: "Category not found" });
     }
-    
-    res.render("updateCategory", {category})
+
+    res.render("category/updateCategory", { category });
 }
 
 async function catUpdatePost(req, res) {
@@ -60,7 +60,7 @@ async function catUpdatePost(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const category = await db.getCatItem(id);
-        return res.render("updateCategory", { category, errors: errors.array() });
+        return res.render("category/updateCategory", { category, errors: errors.array() });
     }
 
     const { name, description } = matchedData(req);
@@ -78,7 +78,7 @@ async function catDeleteGet(req, res) {
     if (!category) {
         return res.render("errorPage", { error: "Category not found" });
     }
-    res.render("deleteCategory", {category})
+    res.render("category/deleteCategory", { category });
 }
 
 async function catDeletePost(req, res) {
@@ -87,13 +87,13 @@ async function catDeletePost(req, res) {
         return res.render("errorPage", { error: "Invalid category id" });
     }
 
-    await db.deleteCatItem(id)
+    await db.deleteCatItem(id);
     const categories = await db.getAllCats();
     if (!categories) {
         return res.render("errorPage", { error: "Unable to load categories" });
     }
 
-    res.render("categories", {categories});
+    res.render("category/categories", { categories });
 }
 
 function isValidId(id) {
@@ -110,8 +110,3 @@ module.exports = {
     catDeleteGet,
     catDeletePost
 }
-
-
-
-
-

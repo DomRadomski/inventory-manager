@@ -2,6 +2,8 @@
 const path = require("node:path");
 const express = require("express");
 
+const catRouter = require("./routes/category")
+
 const app = express();
 
 // For CSS
@@ -18,6 +20,8 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.send("Welcome to the homepage my driller")
 });
+
+app.use("/categories", catRouter);
 
 app.use((err, req, res, next) => {
     console.error(err);
