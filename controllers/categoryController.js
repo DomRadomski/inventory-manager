@@ -15,7 +15,7 @@ async function catCreateGet(req, res) {
     res.render("createCategory");
 }
 
-async function catItemPost(req, res) {
+async function catCreatePost(req, res) {
     const { name, description } = req.body;
     await db.createCat(name, description);
     const category = await db.getLatestCat();
@@ -46,6 +46,16 @@ async function catDeletePost(req, res) {
     res.render("categories", {categories});
 }
 
+module.exports = {
+    catListGet,
+    catItemGet,
+    catCreateGet,
+    catCreatePost,
+    catUpdateGet,
+    catUpdatePost,
+    catDeleteGet,
+    catDeletePost
+}
 
 
 
