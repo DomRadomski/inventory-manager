@@ -1,0 +1,18 @@
+<%- include('../partials/head') %>
+
+<div class="delete-category-page">
+    <h1 class="delete-category-title">Delete Category</h1>
+
+    <p class="delete-category-message">
+        Are you sure you want to delete <strong><%= category.catname %></strong>? This cannot be undone.
+    </p>
+
+    <div class="delete-category-actions">
+        <form class="delete-category-form" action="/categories/category/delete/<%= category.catid %>" method="POST">
+            <button class="delete-category-confirm" type="submit">Yes, delete</button>
+        </form>
+        <a class="delete-category-cancel" href="/categories/<%= category.catid %>">No, take me back</a>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

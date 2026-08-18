@@ -24,7 +24,7 @@ catRouter.post("/category/update/:id",
     asyncHandler(catController.catUpdatePost)
 );
 
-catRouter.get("/delete/:id", asyncHandler(catController.catDeleteGet));
-catRouter.post("/delete/:id", asyncHandler(catController.catDeletePost));
+catRouter.get("/category/delete/:id", asyncHandler(catController.catDeleteGet));
+catRouter.post("/category/delete/:id", asyncHandler(catController.catDeletePost));
 
 module.exports = catRouter;

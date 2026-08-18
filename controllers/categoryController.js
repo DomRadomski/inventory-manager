@@ -93,7 +93,7 @@ async function catDeletePost(req, res) {
     await db.deleteCatItem(id);
     const categories = await db.getAllCats();
     if (!categories) {
-        return res.render("errorPage", { error: "Unable to load categories" });
+        return res.render("errorPage", { error: "Unable to load category" });
     }
 
     res.render("category/categories", { categories });

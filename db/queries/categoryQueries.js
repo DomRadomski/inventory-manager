@@ -37,7 +37,8 @@ module.exports = {
     getCatItem,
     createCat,
     getLatestCat,
-    updateCat
+    updateCat,
+    deleteCatItem
     
 }
 
