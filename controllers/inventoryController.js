@@ -1,6 +1,7 @@
 const { validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries/inventoryQueries");
 
+
 async function invListGet(req, res) {
     const items = await db.getAllItems();
     if (!items) {

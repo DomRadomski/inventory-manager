@@ -1,0 +1,37 @@
+<%- include('../partials/head') %>
+
+<div class="items-page">
+    <h1 class="items-title">Items</h1>
+
+    <div class="items-table">
+        <div class="items-row items-header">
+            <div class="items-cell items-cell-image">Image</div>
+            <div class="items-cell items-cell-name">Name</div>
+            <div class="items-cell items-cell-desc">Description</div>
+            <div class="items-cell items-cell-price">Price</div>
+            <div class="items-cell items-cell-stock">Stock</div>
+            <div class="items-cell items-cell-category">Category</div>
+        </div>
+
+        <% if (items.length === 0) { %>
+            <div class="items-row items-empty">
+                <div class="items-cell">No items found.</div>
+            </div>
+        <% } else { %>
+            <% items.forEach(function(item) { %>
+                <div class="items-row">
+                    <div class="items-cell items-cell-image">
+                        <img class="items-image" src="https://placehold.co/200" alt="<%= item.name %>">
+                    </div>
+                    <div class="items-cell items-cell-name"><%= item.itemname %></div>
+                    <div class="items-cell items-cell-desc"><%= item.itemdesc %></div>
+                    <div class="items-cell items-cell-price">£<%= item.itemprice %></div>
+                    <div class="items-cell items-cell-stock"><%= item.itemstock %></div>
+                    <div class="items-cell items-cell-category"><%= item.itemcatname %></div>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -3,12 +3,13 @@ const path = require("node:path");
 const express = require("express");
 
 const catRouter = require("./routes/category")
+const invRouter = require("./routes/inventory")
 
 const app = express();
 
 // For CSS
-// const assetsPath = path.join(__dirname, "public");
-// app.use(express.static(assetsPath));
+const assetsPath = path.join(__dirname, "public");
+app.use(express.static(assetsPath));
 
 // Useful for parsing 
 app.use(express.urlencoded({ extended: true }));
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/categories", catRouter);
+app.use("/inventory/items", invRouter);
 
 app.use((err, req, res, next) => {
     console.error(err);

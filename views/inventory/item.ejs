@@ -1,0 +1,24 @@
+<%- include('../partials/head') %>
+
+<div class="item-page">
+    <div class="item-image-wrap">
+        <img class="item-image" src="https://placehold.co/200" alt="<%= item.name %>">
+    </div>
+
+    <h1 class="item-title"><%= item.itemname %></h1>
+
+    <div class="item-details">
+        <p class="item-description"><%= item.itemdescription %></p>
+        <p class="item-price">Price: £<%= item.itemprice %></p>
+        <p class="item-stock">In stock: <%= item.itemstock %></p>
+        <p class="item-category">Category: <%= item.catname || "Uncategorized" %></p>
+    </div>
+
+    <div class="item-actions">
+        <a class="item-action item-action-update" href="/items/update/<%= item.id %>">Update</a>
+        <a class="item-action item-action-delete" href="/items/delete/<%= item.id %>">Delete</a>
+        <a class="item-action item-action-back" href="/items">Back to items</a>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
