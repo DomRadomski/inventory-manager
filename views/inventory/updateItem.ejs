@@ -1,0 +1,51 @@
+<%- include('../partials/head') %>
+
+<div class="update-item-page">
+    <h1 class="update-item-title">Update Item</h1>
+
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <div class="form-errors">
+            <ul class="form-errors-list">
+                <% errors.forEach(function(err) { %>
+                    <li class="form-errors-item"><%= err.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form class="update-item-form" action="/inventory/items/item/update/<%= item.itemid %>" method="POST">
+        <div class="form-field">
+            <label class="form-label" for="name">Item Name</label>
+            <input class="form-input" type="text" id="name" name="name" value="<%= item.itemname %>">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-textarea" id="description" name="description"><%= item.itemdescription %></textarea>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="price">Price</label>
+            <input class="form-input" type="text" id="price" name="price" value="<%= item.itemprice %>">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="stock">Stock</label>
+            <input class="form-input" type="text" id="stock" name="stock" value="<%= item.itemstock %>">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="catid">Category</label>
+            <select class="form-select" id="catid" name="catid">
+                <option value="" <%= !item.catid ? "selected" : "" %>>None</option>
+                <% categories.forEach(function(category) { %>
+                    <option value="<%= category.catid %>" <%= item.catid === category.catid ? "selected" : "" %>><%= category.catname %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <button class="form-submit" type="submit">Update Item</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

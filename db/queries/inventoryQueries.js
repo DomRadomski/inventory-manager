@@ -23,7 +23,7 @@ async function getLatestItem() {
 
 async function updateItem(id, name, description, price, stock, imageurl, catid) {
     await pool.query(
-        "UPDATE items SET ItemName = $1, ItemDesc = $2, ItemDesc = $3, ItemDesc = $4, ItemDesc = $5, ItemCatId = $6 WHERE ItemId = $7",
+        "UPDATE items SET ItemName = $1, ItemDesc = $2, ItemPrice = $3, ItemStock = $4, ItemImageUrl = $5, ItemCatId = $6 WHERE ItemId = $7",
         [name, description, price, stock, imageurl, catid, id]
     );
 }

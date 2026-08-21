@@ -1,5 +1,6 @@
 const { validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries/inventoryQueries");
+const db2 = require("../db/queries/categoryQueries");
 
 
 async function invListGet(req, res) {
@@ -25,8 +26,9 @@ async function invItemGet(req, res) {
 
 async function invCreateGet(req, res) {
     const item = await db.getLatestItem();
+    const categories = await db2.getAllCats();
     console.log(item)
-    res.render("inventory/createItem");
+    res.render("inventory/createItem", { categories });
 }
 
 async function invCreatePost(req, res) {
@@ -35,10 +37,10 @@ async function invCreatePost(req, res) {
         return res.render("category/createCategory", { errors: errors.array() });
     }
 
-    const { name, description } = matchedData(req);
+    const { name, description, price, stock, imageurl=null, catid } = matchedData(req);
     await db.createItem(name, description || null, price, stock, imageurl || null, catid || null);
     const item = await db.getLatestItem();
-    res.redirect(`/categories/${item.itemid}`);
+    res.redirect(`inventory/items/item/${item.itemid}`);
 }
 
 async function invUpdateGet(req, res) {
@@ -48,11 +50,13 @@ async function invUpdateGet(req, res) {
     }
 
     const item = await db.getInvItem(id);
+    const categories = await db2.getAllCats();
+
     if (!item) {
         return res.render("errorPage", { error: "Item not found" });
     }
 
-    res.render("inventory/updateItem", { item });
+    res.render("inventory/updateItem", { item, categories });
 }
 
 async function invUpdatePost(req, res) {
@@ -67,8 +71,8 @@ async function invUpdatePost(req, res) {
         return res.render("inventory/updateItem", { item, errors: errors.array() });
     }
 
-    const { name, description } = matchedData(req);
-    await db.updateCat(id, name, description || null, price, stock, imageurl || null, catid || null);
+    const { name, description, price, stock, imageurl=null, catid } = matchedData(req);
+    await db.updateItem(id, name, description || null, price, stock, imageurl || null, catid || null);
     res.redirect(`/inventory/items/item/${id}`);
 }
 

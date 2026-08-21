@@ -1,0 +1,51 @@
+<%- include('../partials/head') %>
+
+<div class="create-item-page">
+    <h1 class="create-item-title">Create Item</h1>
+
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <div class="form-errors">
+            <ul class="form-errors-list">
+                <% errors.forEach(function(err) { %>
+                    <li class="form-errors-item"><%= err.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form class="create-item-form" action="/inventory/items/new" method="POST">
+        <div class="form-field">
+            <label class="form-label" for="name">Item Name</label>
+            <input class="form-input" type="text" id="name" name="name">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-textarea" id="description" name="description"></textarea>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="price">Price</label>
+            <input class="form-input" type="text" id="price" name="price">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="stock">Stock</label>
+            <input class="form-input" type="text" id="stock" name="stock">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="catid">Category</label>
+            <select class="form-select" id="catid" name="catid">
+                <option value="">None</option>
+                <% categories.forEach(function(category) { %>
+                    <option value="<%= category.catid %>"><%= category.catname %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <button class="form-submit" type="submit">Create Item</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>
