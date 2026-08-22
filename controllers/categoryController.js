@@ -1,10 +1,11 @@
 const { validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries/categoryQueries");
+const renderError = require("../utils/renderError");
 
 async function catListGet(req, res) {
     const categories = await db.getAllCats();
     if (!categories) {
-        return res.render("errorPage", { error: "Unable to load categories" });
+        return renderError(req, res, "Unable to load categories", 500);
     }
     res.render("category/categories", { categories });
 }
@@ -12,19 +13,16 @@ async function catListGet(req, res) {
 async function catItemGet(req, res) {
     const id = req.params.id;
     if (!isValidId(id)) {
-        return res.render("errorPage", { error: "Invalid category id" });
+        return renderError(req, res, "Invalid category id", 400);
     }
     const category = await db.getCatItem(id);
-    console.log(category)
     if (!category) {
-        return res.render("errorPage", { error: "Category not found" });
+        return renderError(req, res, "Category not found", 404);
     }
     res.render("category/category", { category });
 }
 
 async function catCreateGet(req, res) {
-    const category = await db.getLatestCat();
-    console.log(category)
     res.render("category/createCategory");
 }
 
@@ -43,12 +41,12 @@ async function catCreatePost(req, res) {
 async function catUpdateGet(req, res) {
     const id = req.params.id;
     if (!isValidId(id)) {
-        return res.render("errorPage", { error: "Invalid category id" });
+        return renderError(req, res, "Invalid category id", 400);
     }
 
     const category = await db.getCatItem(id);
     if (!category) {
-        return res.render("errorPage", { error: "Category not found" });
+        return renderError(req, res, "Category not found", 404);
     }
 
     res.render("category/updateCategory", { category });
@@ -57,7 +55,7 @@ async function catUpdateGet(req, res) {
 async function catUpdatePost(req, res) {
     const id = req.params.id;
     if (!isValidId(id)) {
-        return res.render("errorPage", { error: "Invalid category id" });
+        return renderError(req, res, "Invalid category id", 400);
     }
 
     const errors = validationResult(req);
@@ -74,12 +72,12 @@ async function catUpdatePost(req, res) {
 async function catDeleteGet(req, res) {
     const id = req.params.id;
     if (!isValidId(id)) {
-        return res.render("errorPage", { error: "Invalid category id" });
+        return renderError(req, res, "Invalid category id", 400);
     }
 
     const category = await db.getCatItem(id);
     if (!category) {
-        return res.render("errorPage", { error: "Category not found" });
+        return renderError(req, res, "Category not found", 404);
     }
     res.render("category/deleteCategory", { category });
 }
@@ -87,13 +85,13 @@ async function catDeleteGet(req, res) {
 async function catDeletePost(req, res) {
     const id = req.params.id;
     if (!isValidId(id)) {
-        return res.render("errorPage", { error: "Invalid category id" });
+        return renderError(req, res, "Invalid category id", 400);
     }
 
     await db.deleteCatItem(id);
     const categories = await db.getAllCats();
     if (!categories) {
-        return res.render("errorPage", { error: "Unable to load category" });
+        return renderError(req, res, "Unable to load categories", 500);
     }
 
     res.render("category/categories", { categories });

@@ -1,6 +1,7 @@
 // app.js
 const path = require("node:path");
 const express = require("express");
+const renderError = require("./utils/renderError");
 
 const catRouter = require("./routes/category")
 const invRouter = require("./routes/inventory")
@@ -27,7 +28,7 @@ app.use("/inventory/items", invRouter);
 
 app.use((err, req, res, next) => {
     console.error(err);
-    res.status(500).render("errorPage", { error: "Something went wrong. Please try again." });
+    renderError(req, res, "Something went wrong. Please try again.", 500);
 });
 
 const PORT = 6969;
