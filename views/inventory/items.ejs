@@ -28,6 +28,9 @@
                     <div class="items-cell items-cell-price">£<%= item.itemprice %></div>
                     <div class="items-cell items-cell-stock"><%= item.itemstock %></div>
                     <div class="items-cell items-cell-category"><%= item.itemcatname %></div>
+                    <div class="items-cell items-cell-links">
+                        <a class="item-action item-action-view" href="/inventory/items/item/<%= item.itemid %>">View</a>
+                    </div>
                 </div>
             <% }); %>
         <% } %>

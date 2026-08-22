@@ -21,8 +21,7 @@
                     <div class="categories-cell categories-cell-name"><%= category.catname %></div>
                     <div class="categories-cell categories-cell-desc"><%= category.catdesc %></div>
                     <div class="categories-cell categories-cell-links">
-                        <a class="category-action category-action-update" href="/categories/<%= category.catid %>">View</a>
-                        <a class="category-action category-action-update" href="/categories/category/update/<%= category.catid %>">Update</a>
+                        <a class="category-action category-action-view" href="/categories/<%= category.catid %>">View</a>
                     </div>
                 </div>
             <% }); %>

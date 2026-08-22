@@ -82,7 +82,7 @@ async function invDeleteGet(req, res) {
         return res.render("errorPage", { error: "Invalid request" });
     }
 
-    const item = await db.getCatItem(id);
+    const item = await db.getInvItem(id);
     if (!item) {
         return res.render("errorPage", { error: "Item not found" });
     }
