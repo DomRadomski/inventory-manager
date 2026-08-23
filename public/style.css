@@ -88,6 +88,12 @@ ol {
     gap: 1.5rem;
 }
 
+@media(max-width: 600px) {
+    .site-nav {
+        display: none;
+    }
+}
+
 .site-nav-link {
     display: inline-block;
     color: #d1d5db;
