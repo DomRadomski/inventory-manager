@@ -3,26 +3,18 @@
 <div class="categories-page">
     <h1 class="categories-title">Categories</h1>
 
-    <a class="category-action category-action-create" href="/categories/category/new">Create new category</a>
+    <a class="category-action category-action-create" href="/categories/new">Create new category</a>
 
-    <div class="categories-table">
-        <div class="categories-row categories-header">
-            <div class="categories-cell categories-cell-name">Category</div>
-            <div class="categories-cell categories-cell-desc">Description</div>
-        </div>
-
+    <div class="categories-scroll">
         <% if (categories.length === 0) { %>
-            <div class="categories-row categories-empty">
-                <div class="categories-cell">No categories found.</div>
-            </div>
+            <p class="categories-empty">No categories found.</p>
         <% } else { %>
             <% categories.forEach(function(category) { %>
-                <div class="categories-row">
-                    <div class="categories-cell categories-cell-name"><%= category.catname %></div>
-                    <div class="categories-cell categories-cell-desc"><%= category.catdesc %></div>
-                    <div class="categories-cell categories-cell-links">
-                        <a class="category-action category-action-view" href="/categories/<%= category.catid %>">View</a>
-                    </div>
+                <div class="category-card">
+                    <img class="category-card-image" src="https://placehold.co/200" alt="<%= category.catname %>">
+                    <h2 class="category-card-name"><%= category.catname %></h2>
+                    <p class="category-card-desc"><%= category.catdesc %></p>
+                    <a class="category-action category-action-view" href="/categories/category/<%= category.catid %>">View</a>
                 </div>
             <% }); %>
         <% } %>

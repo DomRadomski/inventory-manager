@@ -35,7 +35,7 @@ async function catCreatePost(req, res) {
     const { name, description } = matchedData(req);
     await db.createCat(name, description || null);
     const category = await db.getLatestCat();
-    res.redirect(`/categories/${category.catid}`);
+    res.redirect(`/categories/category/${category.catid}`);
 }
 
 async function catUpdateGet(req, res) {

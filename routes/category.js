@@ -6,11 +6,11 @@ const catRouter = Router();
 
 catRouter.get("/", asyncHandler(catController.catListGet));
 
-catRouter.get("/:id", asyncHandler(catController.catItemGet));
+catRouter.get("/category/:id", asyncHandler(catController.catItemGet));
 
-catRouter.get("/category/new", asyncHandler(catController.catCreateGet));
+catRouter.get("/new", asyncHandler(catController.catCreateGet));
 
-catRouter.post("/category/new",
+catRouter.post("/new",
     body("name").trim().notEmpty().withMessage("Category name is required"),
     body("description").trim().optional({ values: "falsy" }),
     asyncHandler(catController.catCreatePost)

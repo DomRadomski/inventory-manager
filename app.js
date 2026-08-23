@@ -26,6 +26,10 @@ app.get("/", (req, res) => {
 app.use("/categories", catRouter);
 app.use("/inventory/items", invRouter);
 
+app.use("/", (req, res) => {
+    renderError(req, res, "Page not found", 404);
+});
+
 app.use((err, req, res, next) => {
     console.error(err);
     renderError(req, res, "Something went wrong. Please try again.", 500);

@@ -3,12 +3,12 @@ const pool = require("../pool");
 const { body, validationResult, matchedData } = require("express-validator");
 
 async function getAllItems() {
-    const { rows } = await pool.query("SELECT items.*, categories.catname FROM items JOIN categories ON items.itemcatid = categories.catid");
+    const { rows } = await pool.query("SELECT items.*, categories.catname FROM items LEFT JOIN categories ON items.itemcatid = categories.catid");
     return rows;
 }
 
 async function getInvItem(id) {
-    const result = await pool.query("SELECT items.*, categories.catname FROM items JOIN categories ON items.itemcatid = categories.catid WHERE ItemId = $1", [id]);
+    const result = await pool.query("SELECT items.*, categories.catname FROM items LEFT JOIN categories ON items.itemcatid = categories.catid WHERE ItemId = $1", [id]);
     return result.rows[0];
 }
 

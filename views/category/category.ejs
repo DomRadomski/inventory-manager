@@ -1,16 +1,16 @@
 <%- include('../partials/head') %>
 
 <div class="category-page">
-    <h1 class="category-title"><%= category.catname %></h1>
+    <div class="category-page-card">
+        <img class="category-page-image" src="https://placehold.co/200" alt="<%= category.catname %>">
+        <h1 class="category-page-title"><%= category.catname %></h1>
+        <p class="category-page-desc"><%= category.catdesc %></p>
 
-    <div class="category-details">
-        <p class="category-description"><%= category.catdesc %></p>
-    </div>
-
-    <div class="category-actions">
-        <a class="category-action category-action-update" href="/categories/category/update/<%= category.catid %>">Update</a>
-        <a class="category-action category-action-delete" href="/categories/category/delete/<%= category.catid %>">Delete</a>
-        <a class="category-action category-action-back" href="/categories">Back to categories</a>
+        <div class="category-page-actions">
+            <a class="category-action category-action-update" href="/categories/category/update/<%= category.catid %>">Update</a>
+            <a class="category-action category-action-delete" href="/categories/category/delete/<%= category.catid %>">Delete</a>
+            <a class="category-action category-action-back" href="/categories">Back</a>
+        </div>
     </div>
 </div>
 

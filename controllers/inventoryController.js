@@ -5,10 +5,11 @@ const renderError = require("../utils/renderError");
 
 async function invListGet(req, res) {
     const items = await db.getAllItems();
+    const categories = await db2.getAllCats();
     if (!items) {
         return renderError(req, res, "Unable to load items", 500);
     }
-    res.render("inventory/items", { items });
+    res.render("inventory/items", { items, categories });
 }
 
 async function invItemGet(req, res) {
@@ -96,11 +97,11 @@ async function invDeletePost(req, res) {
 
     await db.deleteInvItem(id);
     const items = await db.getAllItems();
+    const categories = await db2.getAllCats();
     if (!items) {
         return renderError(req, res, "Unable to load items", 500);
     }
-
-    res.render("inventory/items", { items });
+    res.render("inventory/items", { items, categories });
 }
 
 function isValidId(id) {

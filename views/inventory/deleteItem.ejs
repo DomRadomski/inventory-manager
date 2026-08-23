@@ -1,17 +1,18 @@
+<!-- deleteItem.ejs -->
 <%- include('../partials/head') %>
 
 <div class="delete-item-page">
     <h1 class="delete-item-title">Delete Item</h1>
 
     <p class="delete-item-message">
-        Are you sure you want to delete <strong><%= item.name %></strong>? This cannot be undone.
+        Are you sure you want to delete <strong><%= item.itemname %></strong>? This cannot be undone.
     </p>
 
     <div class="delete-item-actions">
         <form class="delete-item-form" action="/inventory/items/item/delete/<%= item.itemid %>" method="POST">
             <button class="delete-item-confirm" type="submit">Yes, delete</button>
         </form>
-        <a class="delete-item-cancel" href="/inventory/items/<%= item.id %>">No, take me back</a>
+        <a class="delete-item-cancel" href="/inventory/items/item/<%= item.itemid %>">No, take me back</a>
     </div>
 </div>
 

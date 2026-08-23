@@ -3,38 +3,54 @@
 <div class="items-page">
     <h1 class="items-title">Items</h1>
 
-    <div class="items-table">
-        <div class="items-row items-header">
-            <div class="items-cell items-cell-image">Image</div>
-            <div class="items-cell items-cell-name">Name</div>
-            <div class="items-cell items-cell-desc">Description</div>
-            <div class="items-cell items-cell-price">Price</div>
-            <div class="items-cell items-cell-stock">Stock</div>
-            <div class="items-cell items-cell-category">Category</div>
-        </div>
+    <a class="item-action item-action-create" href="/inventory/items/new">Create new item</a>
 
-        <% if (items.length === 0) { %>
-            <div class="items-row items-empty">
-                <div class="items-cell">No items found.</div>
-            </div>
-        <% } else { %>
+    <div class="items-filters">
+        <button class="items-filter items-filter-active" data-catid="all" type="button">All</button>
+        <button class="items-filter" data-catid="none" type="button">None</button>
+        <% categories.forEach(function(category) { %>
+            <button class="items-filter" data-catid="<%= category.catid %>" type="button"><%= category.catname %></button>
+        <% }); %>
+    </div>
+
+    <% if (items.length === 0) { %>
+        <p class="items-empty">No items found.</p>
+    <% } else { %>
+        <div class="items-grid">
             <% items.forEach(function(item) { %>
-                <div class="items-row">
-                    <div class="items-cell items-cell-image">
-                        <img class="items-image" src="https://placehold.co/200" alt="<%= item.name %>">
-                    </div>
-                    <div class="items-cell items-cell-name"><%= item.itemname %></div>
-                    <div class="items-cell items-cell-desc"><%= item.itemdesc %></div>
-                    <div class="items-cell items-cell-price">£<%= item.itemprice %></div>
-                    <div class="items-cell items-cell-stock"><%= item.itemstock %></div>
-                    <div class="items-cell items-cell-category"><%= item.itemcatname %></div>
-                    <div class="items-cell items-cell-links">
-                        <a class="item-action item-action-view" href="/inventory/items/item/<%= item.itemid %>">View</a>
-                    </div>
+                <div class="item-card" data-catid="<%= item.itemcatid || 'none' %>">
+                    <img class="item-card-image" src="https://placehold.co/200" alt="<%= item.itemname %>">
+                    <h2 class="item-card-name"><%= item.itemname %></h2>
+                    <p class="item-card-desc"><%= item.itemdesc %></p>
+                    <p class="item-card-price">£<%= item.itemprice %></p>
+                    <p class="item-card-stock">In stock: <%= item.itemstock %></p>
+                    <p class="item-card-category"><%= item.catname || "Uncategorized" %></p>
+                    <a class="item-action item-action-view" href="/inventory/items/item/<%= item.itemid %>">View</a>
                 </div>
             <% }); %>
-        <% } %>
-    </div>
+        </div>
+    <% } %>
 </div>
+
+<script>
+    const filterButtons = document.querySelectorAll(".items-filter");
+    const itemCards = document.querySelectorAll(".item-card");
+
+    filterButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const selectedCatId = button.dataset.catid;
+
+            filterButtons.forEach(function (b) {
+                b.classList.remove("items-filter-active");
+            });
+            button.classList.add("items-filter-active");
+
+            itemCards.forEach(function (card) {
+                const matches = selectedCatId === "all" || card.dataset.catid === selectedCatId;
+                card.style.display = matches ? "" : "none";
+            });
+        });
+    });
+</script>
 
 <%- include('../partials/footer') %>
