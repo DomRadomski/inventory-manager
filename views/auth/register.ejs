@@ -1,0 +1,36 @@
+<%- include('../partials/head') %>
+
+<div class="register-page">
+    <h1 class="register-title">Register</h1>
+
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+        <div class="form-errors">
+            <ul class="form-errors-list">
+                <% errors.forEach(function(err) { %>
+                    <li class="form-errors-item"><%= err.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form class="register-form" action="/auth/register" method="POST">
+        <div class="form-field">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-input" type="text" id="username" name="username">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" type="password" id="password" name="password">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <input class="form-input" type="password" id="confirmPassword" name="confirmPassword">
+        </div>
+
+        <button class="form-submit" type="submit">Register</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

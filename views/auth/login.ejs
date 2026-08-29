@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+
+<div class="login-page">
+    <h1 class="login-title">Login</h1>
+
+    <% if (typeof messages !== "undefined" && messages.length > 0) { %>
+        <div class="form-errors">
+            <ul class="form-errors-list">
+                <% messages.forEach(function(msg) { %>
+                    <li class="form-errors-item"><%= msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form class="login-form" action="/auth/login" method="POST">
+        <div class="form-field">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-input" type="text" id="username" name="username">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" type="password" id="password" name="password">
+        </div>
+
+        <button class="form-submit" type="submit">Login</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

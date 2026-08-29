@@ -4,14 +4,17 @@ const express = require("express");
 const session = require('express-session');
 var passport = require('passport');
 var crypto = require('crypto');
+require("dotenv").config()
 
 // Db imports
 const pool = require('./db/pool')
 
 // Util imports
 const renderError = require("./utils/renderError");
+require("./utils/auth/passport")
 
 // Route imports
+const authRouter = require("./routes/auth")
 const catRouter = require("./routes/category")
 const invRouter = require("./routes/inventory")
 
@@ -47,12 +50,23 @@ app.use(session({
     cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 day
 }));
 
+// Passport authentication
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
+});
+
 // Routes
 
 app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.use("/auth", authRouter);
 app.use("/categories", catRouter);
 app.use("/inventory/items", invRouter);
 
