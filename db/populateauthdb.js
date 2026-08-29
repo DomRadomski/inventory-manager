@@ -19,6 +19,27 @@ CREATE TABLE IF NOT EXISTS items (
   ItemCatId INTEGER REFERENCES categories(CatId) ON DELETE SET NULL
 );
 
+CREATE TABLE IF NOT EXISTS users (
+  UserId SERIAL PRIMARY KEY,
+  UserName VARCHAR(255) UNIQUE NOT NULL,
+  UserHash TEXT NOT NULL,
+  UserSalt TEXT NOT NULL
+);
+
+ALTER TABLE categories ADD COLUMN IF NOT EXISTS CatCreatedById INTEGER REFERENCES users(UserId) ON DELETE SET NULL;
+ALTER TABLE items ADD COLUMN IF NOT EXISTS ItemCreatedById INTEGER REFERENCES users(UserId) ON DELETE SET NULL;
+
+CREATE TABLE IF NOT EXISTS session (
+  "sid" varchar NOT NULL COLLATE "default" PRIMARY KEY,
+  "sess" json NOT NULL,
+  "expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+
+CREATE INDEX IF NOT EXISTS "IDX_session_expire" ON "session" ("expire");
+`;
+
+const SEED_SQL = `
 INSERT INTO categories (CatName, CatDesc)
 VALUES
   ('Shirts', 'Football shirts and jerseys'),
@@ -44,12 +65,21 @@ VALUES
 `;
 
 async function main() {
-  console.log("seeding...");
+  console.log("setting up schema...");
   const client = new Client({
-    connectionString: process.env.LOCAL_DATABASE_URL,
+    connectionString: process.env.AUTH_DATABASE_URL,
   });
   await client.connect();
   await client.query(SQL);
+
+  const { rows } = await client.query("SELECT COUNT(*) FROM categories");
+  if (Number(rows[0].count) === 0) {
+    console.log("seeding categories/items...");
+    await client.query(SEED_SQL);
+  } else {
+    console.log("categories already seeded, skipping seed data");
+  }
+
   await client.end();
   console.log("done");
 }
