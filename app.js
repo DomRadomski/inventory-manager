@@ -4,6 +4,7 @@ const express = require("express");
 const session = require('express-session');
 var passport = require('passport');
 var crypto = require('crypto');
+
 require("dotenv").config()
 
 // Db imports
@@ -11,12 +12,14 @@ const pool = require('./db/pool')
 
 // Util imports
 const renderError = require("./utils/renderError");
-require("./utils/auth/passport")
+const { isAuthenticated } = require("./utils/auth/authMiddleware");
+
+require("./utils/auth/passport");
 
 // Route imports
 const authRouter = require("./routes/auth")
 const catRouter = require("./routes/category")
-const invRouter = require("./routes/inventory")
+const invRouter = require("./routes/inventory");
 
 // App setup
 const app = express();
@@ -67,8 +70,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRouter);
-app.use("/categories", catRouter);
-app.use("/inventory/items", invRouter);
+app.use("/categories", isAuthenticated, catRouter);
+app.use("/inventory/items", isAuthenticated, invRouter);
 
 app.use("/", (req, res) => {
     renderError(req, res, "Page not found", 404);
