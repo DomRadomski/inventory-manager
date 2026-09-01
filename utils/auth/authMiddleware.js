@@ -1,3 +1,5 @@
+const { renderError } = require("../../utils/renderError");
+
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -6,8 +8,10 @@ function isAuthenticated(req, res, next) {
 }
 
 function isAdmin(req, res, next) {
-    // TODO: check req.user's admin status once that concept exists
-    return next();
+    if (req.isAuthenticated() && req.user.useradmin) {
+        return next();
+    }
+    renderError(req, res, "You don't have permission to do that", 403)
 }
 
 module.exports = {
