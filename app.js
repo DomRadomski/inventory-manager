@@ -11,7 +11,7 @@ require("dotenv").config()
 const pool = require('./db/pool')
 
 // Util imports
-const renderError = require("./utils/renderError");
+const { renderError }= require("./utils/renderError");
 const { isAuthenticated } = require("./utils/auth/authMiddleware");
 
 require("./utils/auth/passport");
