@@ -2,7 +2,8 @@ const { Router } = require("express");
 const { body } = require("express-validator");
 const invController = require("../controllers/inventoryController");
 const invRouter = Router();
-const asyncHandler = require("../utils/asyncHandler")
+const asyncHandler = require("../utils/asyncHandler");
+const { isAdmin } = require("../utils/auth/authMiddleware");
 
 invRouter.get("/", asyncHandler(invController.invListGet));
 
@@ -10,6 +11,7 @@ invRouter.get("/item/:id", asyncHandler(invController.invItemGet));
 
 invRouter.get("/new", asyncHandler(invController.invCreateGet));
 invRouter.post("/new",
+    isAdmin,
     body("name").trim().notEmpty().withMessage("Item name is required"),
     body("description").trim().optional({ values: "falsy" }),
     body("price")
@@ -26,6 +28,7 @@ invRouter.post("/new",
 
 invRouter.get("/item/update/:id", asyncHandler(invController.invUpdateGet));
 invRouter.post("/item/update/:id",
+    isAdmin,
     body("name").trim().notEmpty().withMessage("Item name is required"),
     body("description").trim().optional({ values: "falsy" }),
     body("price")
@@ -41,11 +44,6 @@ invRouter.post("/item/update/:id",
 );
 
 invRouter.get("/item/delete/:id", asyncHandler(invController.invDeleteGet));
-invRouter.post("/item/delete/:id", asyncHandler(invController.invDeletePost));
+invRouter.post("/item/delete/:id", isAdmin, asyncHandler(invController.invDeletePost));
 
 module.exports = invRouter;
-
-
-
-
-

@@ -1,4 +1,5 @@
 const { validationResult, matchedData } = require("express-validator");
+const { isAuthenticated, isAdmin } = require("../utils/auth/authMiddleware");
 const db = require("../db/queries/categoryQueries");
 const renderError = require("../utils/renderError");
 

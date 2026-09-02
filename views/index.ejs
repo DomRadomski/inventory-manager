@@ -3,19 +3,34 @@
 <div class="home-page">
     <h1 class="home-title">Welcome to Inventory Manager</h1>
 
-    <div class="home-cards">
-        <a class="home-card home-card-categories" href="/categories">
-            <img class="home-card-image" src="https://placehold.co/200" alt="Categories">
-            <h2 class="home-card-title">Categories</h2>
-            <p class="home-card-desc">Browse and manage your product categories</p>
-        </a>
+    <% if (user) { %>
+        <div class="home-cards">
+            <a class="home-card home-card-categories" href="/categories">
+                <img class="home-card-image" src="https://placehold.co/200" alt="Categories">
+                <h2 class="home-card-title">Categories</h2>
+                <p class="home-card-desc">Browse and manage your product categories</p>
+            </a>
 
-        <a class="home-card home-card-items" href="/inventory/items">
-            <img class="home-card-image" src="https://placehold.co/200" alt="Items">
-            <h2 class="home-card-title">Items</h2>
-            <p class="home-card-desc">Browse and manage your inventory items</p>
-        </a>
-    </div>
+            <a class="home-card home-card-items" href="/inventory/items">
+                <img class="home-card-image" src="https://placehold.co/200" alt="Items">
+                <h2 class="home-card-title">Items</h2>
+                <p class="home-card-desc">Browse and manage your inventory items</p>
+            </a>
+        </div>
+    <% } else { %>
+        <div class="home-guest">
+            <p class="home-guest-desc">
+                Inventory Manager helps you organize your stock into categories and items - track pricing, stock levels, and product details all in one place.
+            </p>
+            <p class="home-guest-desc">
+                Log in or create an account to get started - Only admins can create, update or delete items or categories.
+            </p>
+            <div class="home-guest-actions">
+                <a class="home-guest-action home-guest-login" href="/auth/login">Login</a>
+                <a class="home-guest-action home-guest-register" href="/auth/register">Register</a>
+            </div>
+        </div>
+    <% } %>
 </div>
 
 <%- include('partials/footer') %>
