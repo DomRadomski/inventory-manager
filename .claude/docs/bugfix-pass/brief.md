@@ -38,7 +38,7 @@ Every existing page and form behaves as the README describes: correct error page
 
 ## Constraints
 - Existing stack only, no new dependencies
-- Deploys automatically when pushed to Render; DB on Neon
+- Render deploys automatically from `main`; DB on Neon
 - Verified by hand (no test suite yet)
 
 ## Success criteria

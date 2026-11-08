@@ -5,7 +5,7 @@ _Generated from issues/*.md. Don't edit by hand._
 
 ## Backlog
 - [02 Failed-validation update on a missing record returns 404](issues/02-update-missing-record-404.md) · AFK · blocked by 01
-- [07 Open PR, merge, re-check on the live site](issues/07-pr-and-live-check.md) · HITL · blocked by 01, 02, 03, 04, 05, 06
+- [07 Re-check everything on the live site](issues/07-live-site-check.md) · HITL · blocked by 01, 02, 03, 04, 05, 06
 
 ## Ready
 - [01 Error pages show the right message and status](issues/01-error-pages.md) · AFK

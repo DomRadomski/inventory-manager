@@ -33,7 +33,7 @@ Every existing page and form behaves the way the README describes. Users get the
 - **Query modules:** `createCat` and `createItem` return the inserted row (via `RETURNING *`). Controllers redirect using that row's id. `getLatestCat` and `getLatestItem` are deleted along with their exports; they have no other callers.
 - **App entry:** the listen port is `process.env.PORT`, falling back to 6969.
 - **No schema changes, no new dependencies, no changes to auth or validation rules.**
-- **Delivery:** one commit per fix on `claude/sleepy-allen-6mmsf7`, then a PR into `main`. The owner merges it, which triggers the Render deploy.
+- **Delivery:** each issue is built in its own fresh session and lands on `main` through its own PR (see the `dev-flow` skill). The owner merges each PR, which triggers a Render deploy.
 
 ## Testing Decisions
 - **Seam under test:** the HTTP routes of the running app, exercised with `curl` against a throwaway Postgres in the dev container (schema and seed from the existing auth DB setup script). A test user registers through the app and is promoted to admin with a hand-run SQL `UPDATE`. Write requests use that user's session cookie.
